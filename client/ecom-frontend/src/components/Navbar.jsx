@@ -1,49 +1,49 @@
-import React, { useEffect, useState } from "react";
-import Home from "./Home"
-import axios from "axios";
-// import { json } from "react-router-dom";
-// import { BiSunFill, BiMoon } from "react-icons/bi";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
 
-const Navbar = ({ onSelectCategory, onSearch }) => {
+import axios from 'axios';
+
+const Navbar = ({ onSelectCategory}) => {
   const getInitialTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme ? storedTheme : "light-theme";
+    const storedTheme = localStorage.getItem('theme');
+    return storedTheme ? storedTheme : 'light-theme';
   };
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [theme, setTheme] = useState(getInitialTheme());
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
-  const [showSearchResults,setShowSearchResults] = useState(false)
+  const [showSearchResults, setShowSearchResults] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async (value) => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/products");
+      const response = await axios.get('http://localhost:8080/api/products');
       setSearchResults(response.data);
       console.log(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   };
 
   const handleChange = async (value) => {
     setInput(value);
     if (value.length >= 1) {
-      setShowSearchResults(true)
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/products/search?keyword=${value}`
-      );
-      setSearchResults(response.data);
-      setNoResults(response.data.length === 0);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error searching:", error);
-    }
+      setShowSearchResults(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/products/search?keyword=${value}`
+        );
+        setSearchResults(response.data);
+        setNoResults(response.data.length === 0);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error searching:', error);
+      }
     } else {
       setShowSearchResults(false);
       setSearchResults([]);
@@ -51,57 +51,21 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
     }
   };
 
-  
-  // const handleChange = async (value) => {
-  //   setInput(value);
-  //   if (value.length >= 1) {
-  //     setShowSearchResults(true);
-  //     try {
-  //       let response;
-  //       if (!isNaN(value)) {
-  //         // Input is a number, search by ID
-  //         response = await axios.get(`http://localhost:8080/api/products/search?id=${value}`);
-  //       } else {
-  //         // Input is not a number, search by keyword
-  //         response = await axios.get(`http://localhost:8080/api/products/search?keyword=${value}`);
-  //       }
-
-  //       const results = response.data;
-  //       setSearchResults(results);
-  //       setNoResults(results.length === 0);
-  //       console.log(results);
-  //     } catch (error) {
-  //       console.error("Error searching:", error.response ? error.response.data : error.message);
-  //     }
-  //   } else {
-  //     setShowSearchResults(false);
-  //     setSearchResults([]);
-  //     setNoResults(false);
-  //   }
-  // };
-
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     onSelectCategory(category);
   };
   const toggleTheme = () => {
-    const newTheme = theme === "dark-theme" ? "light-theme" : "dark-theme";
+    const newTheme = theme === 'dark-theme' ? 'light-theme' : 'dark-theme';
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
-  const categories = [
-    "Laptop",
-    "Headphone",
-    "Mobile",
-    "Electronics",
-    "Toys",
-    "Fashion",
-  ];
+  const categories = ['Laptop', 'Headphone', 'Mobile', 'Electronics', 'Toys', 'Fashion'];
   return (
     <>
       <header>
@@ -121,10 +85,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <a className="nav-link active" aria-current="page" href="/">
@@ -165,7 +126,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                 <li className="nav-item"></li>
               </ul>
               <button className="theme-btn" onClick={() => toggleTheme()}>
-                {theme === "dark-theme" ? (
+                {theme === 'dark-theme' ? (
                   <i className="bi bi-moon-fill"></i>
                 ) : (
                   <i className="bi bi-sun-fill"></i>
@@ -175,7 +136,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                 <a href="/cart" className="nav-link text-dark">
                   <i
                     className="bi bi-cart me-2"
-                    style={{ display: "flex", alignItems: "center" }}
+                    style={{ display: 'flex', alignItems: 'center' }}
                   >
                     Cart
                   </i>
@@ -193,21 +154,20 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                 />
                 {showSearchResults && (
                   <ul className="list-group">
-                    {searchResults.length > 0 ? (  
-                        searchResults.map((result) => (
+                    {searchResults.length > 0
+                      ? searchResults.map((result) => (
                           <li key={result.id} className="list-group-item">
-                            <a href={`/product/${result.id}`} className="search-result-link">
-                            <span>{result.name}</span>
+                            <a
+                              href={`/product/${result.id}`}
+                              className="search-result-link"
+                            >
+                              <span>{result.name}</span>
                             </a>
                           </li>
                         ))
-                    ) : (
-                      noResults && (
-                        <p className="no-results-message">
-                          No Prouduct with such Name
-                        </p>
-                      )
-                    )}
+                      : noResults && (
+                          <p className="no-results-message">No Prouduct with such Name</p>
+                        )}
                   </ul>
                 )}
                 {/* <button
