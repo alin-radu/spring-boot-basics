@@ -1,0 +1,68 @@
+### find all content;
+GET http://localhost:8080/api/content
+
+### find contentById;
+GET http://localhost:8080/api/content/1
+
+### create new content;
+POST http://localhost:8080/api/content
+Content-Type: application/json
+
+{
+  "title": "My Second Blog Post",
+  "description": "My Second blog post",
+  "status": "IDEA",
+  "contentType": "ARTICLE",
+  "dateCreated": "2024-12-30T17:24:42.382419",
+  "dateUpdated": null,
+  "url": ""
+}
+
+### create new content without a title;
+POST http://localhost:8080/api/content
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "My Second blog post",
+  "status": "IDEA",
+  "contentType": "ARTICLE",
+  "dateCreated": "2024-12-30T17:24:42.382419",
+  "dateUpdated": null,
+  "url": ""
+}
+
+### update existing content;
+PUT http://localhost:8080/api/content/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "My First Blog Post | Modified !!!",
+  "description": "My First blog post was edited",
+  "status": "IDEA",
+  "contentType": "ARTICLE",
+  "dateCreated": "2024-12-30T17:24:42.382419",
+  "dateUpdated": "2024-12-30T17:24:42.382419",
+  "url": "http://localhost:8080/my-first-blog-post"
+}
+
+### update existing content with invalid id;
+PUT http://localhost:8080/api/content/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "My Second Blog Post Edited",
+  "description": "My Second blog post was edited",
+  "status": "IDEA",
+  "contentType": "ARTICLE",
+  "dateCreated": "2024-12-30T17:24:42.382419",
+  "dateUpdated": "2024-12-30T17:24:42.382419",
+  "url": "http://localhost:8080/my-first-blog-post"
+}
+
+### delete new content;
+DELETE http://localhost:8080/api/content/2
+
+
