@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private ProductRepo repo;
+    private final ProductRepo repo;
 
     @Autowired
-    public void setRepo(ProductRepo repo) {
+    public ProductService(ProductRepo repo) {
         this.repo = repo;
     }
 
@@ -26,6 +26,7 @@ public class ProductService {
     public Product getProductById(int productId) {
         return repo.findById(productId).orElse(null);
     }
+
     public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
         product.setImageName(imageFile.getOriginalFilename());
         product.setImageType(imageFile.getContentType());
@@ -38,6 +39,7 @@ public class ProductService {
         product.setImageData(imageFile.getBytes());
         product.setImageName(imageFile.getOriginalFilename());
         product.setImageType(imageFile.getContentType());
+
         return repo.save(product);
     }
 

@@ -16,16 +16,20 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
-    private ProductService service;
+    private final ProductService service;
 
     @Autowired
-    public void setService(ProductService service) {
+    public ProductController(ProductService service) {
         this.service = service;
     }
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
-        return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
+        List<Product> products = service.getAllProducts();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(products);
     }
 
     @GetMapping("/products/{productId}")
@@ -33,9 +37,15 @@ public class ProductController {
         Product product = service.getProductById(productId);
 
         if (product != null) {
-            return new ResponseEntity<>(product, HttpStatus.OK);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(product);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
         }
     }
 
@@ -44,9 +54,13 @@ public class ProductController {
 
         try {
             Product newProduct = service.addProduct(product, imageFile);
+
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
         }
     }
 
@@ -56,7 +70,8 @@ public class ProductController {
         Product product = service.getProductById(productId);
         byte[] imageFile = product.getImageData();
 
-        return ResponseEntity.ok()
+        return ResponseEntity
+                .ok()
                 .contentType(MediaType.valueOf(product.getImageType()))
                 .body(imageFile);
     }
@@ -67,15 +82,21 @@ public class ProductController {
             @RequestPart Product product,
             @RequestPart MultipartFile imageFile
     ) {
-        if (service.getProductById(productId) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        if (service.getProductById(productId)== null) {
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
         }
 
         try {
             Product newProduct = service.updateProduct(product, imageFile);
             return new ResponseEntity<>(newProduct, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 
@@ -84,17 +105,23 @@ public class ProductController {
         Product product = service.getProductById(id);
         if (product != null) {
             service.deleteProduct(id);
+
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } else
-            return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
 
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Product not found");
     }
 
     @GetMapping("/products/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
         List<Product> products = service.searchProducts(keyword);
         System.out.println("searching with " + keyword);
-        return new ResponseEntity<>(products, HttpStatus.OK);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(products);
     }
 
 }

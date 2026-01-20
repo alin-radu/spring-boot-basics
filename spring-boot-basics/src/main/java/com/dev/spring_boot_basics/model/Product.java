@@ -28,6 +28,7 @@ public class Product {
     private BigDecimal price;
     private String category;
 
+    // @JsonFormat is a jackson library feature;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date releaseDate;
     private boolean available;
