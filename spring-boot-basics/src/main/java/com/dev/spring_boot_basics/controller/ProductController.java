@@ -1,5 +1,6 @@
 package com.dev.spring_boot_basics.controller;
 
+import com.dev.spring_boot_basics.dto.ProductResponseDto;
 import com.dev.spring_boot_basics.model.Product;
 import com.dev.spring_boot_basics.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +50,17 @@ public class ProductController {
         }
     }
 
+    @SuppressWarnings("JvmTaintAnalysis")
     @PostMapping("/products")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
 
         try {
             Product newProduct = service.addProduct(product, imageFile);
 
-            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+            //noinspection JvmTaintAnalysis
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(new ProductResponseDto(newProduct));
         } catch (Exception e) {
 
             return ResponseEntity
@@ -76,6 +81,7 @@ public class ProductController {
                 .body(imageFile);
     }
 
+    @SuppressWarnings("JvmTaintAnalysis")
     @PutMapping("/products/{productId}")
     public ResponseEntity<?> updateProduct(
             @PathVariable int productId,
@@ -83,7 +89,7 @@ public class ProductController {
             @RequestPart MultipartFile imageFile
     ) {
 
-        if (service.getProductById(productId)== null) {
+        if (service.getProductById(productId) == null) {
 
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -92,7 +98,11 @@ public class ProductController {
 
         try {
             Product newProduct = service.updateProduct(product, imageFile);
-            return new ResponseEntity<>(newProduct, HttpStatus.OK);
+
+            //noinspection JvmTaintAnalysis
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ProductResponseDto(newProduct));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -123,7 +133,6 @@ public class ProductController {
                 .status(HttpStatus.OK)
                 .body(products);
     }
-
 }
 
 //package com.dev.spring_boot_basics.controller;
