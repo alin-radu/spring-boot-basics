@@ -54,6 +54,8 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
 
+        System.out.println("Adding product: " + product);
+
         try {
             Product newProduct = service.addProduct(product, imageFile);
 
