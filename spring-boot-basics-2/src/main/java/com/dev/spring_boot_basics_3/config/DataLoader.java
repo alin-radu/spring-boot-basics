@@ -2,15 +2,16 @@ package com.dev.spring_boot_basics_3.config;
 
 import com.dev.spring_boot_basics_3.model.Content;
 import com.dev.spring_boot_basics_3.repository.ContentRepository;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
+
+
+// CommandLineRunner runs after dependency injection happens, after the application is started up
 
 //@Profile("!dev")
 @Component

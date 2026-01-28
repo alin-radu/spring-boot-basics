@@ -1,0 +1,14 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: content-app
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: springbootstudent
+    ports:
+      - "5432:5432"
+    volumes:
+      - content_app_data:/var/lib/postgresql/data
+
+volumes:
+  content_app_data:

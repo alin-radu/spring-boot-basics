@@ -1,9 +1,11 @@
 package com.dev.spring_boot_basics_3;
 
+import com.dev.spring_boot_basics_3.config.ContentCalendarProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-//@EnableConfigurationProperties(ContentCalendarProperties.class)
+@EnableConfigurationProperties(ContentCalendarProperties.class)
 @SpringBootApplication
 public class Application {
 

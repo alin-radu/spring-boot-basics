@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+// not required because it is an interface of the base repositories ListCrudRepository
 public interface ContentRepository extends ListCrudRepository<Content, Integer> {
 
     // building custom query using query derivation

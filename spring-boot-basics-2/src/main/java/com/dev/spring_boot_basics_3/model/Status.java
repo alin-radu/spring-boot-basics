@@ -2,7 +2,7 @@ package com.dev.spring_boot_basics_3.model;
 
 public enum Status {
     IDEA,
-    In_PROGRESS,
+    IN_PROGRESS,
     COMPLETED,
     PUBLISHED
 }

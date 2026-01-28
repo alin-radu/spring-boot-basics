@@ -11,6 +11,12 @@ package com.dev.spring_boot_basics_3.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+//require
+//<dependency>
+//    <groupId>org.springframework.boot</groupId>
+//    <artifactId>spring-boot-configuration-processor</artifactId>
+//    <optional>compile</scope>
+//</dependency>
 @ConfigurationProperties(value = "cc")
 public record ContentCalendarProperties(String welcomeMessage, String about) {
 }

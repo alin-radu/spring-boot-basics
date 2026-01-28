@@ -4,7 +4,6 @@ import com.dev.spring_boot_basics_3.model.Content;
 import com.dev.spring_boot_basics_3.model.Status;
 import com.dev.spring_boot_basics_3.model.Type;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,6 @@ import java.util.List;
  * This instance is used for executing SQL queries.
  */
 
-@Repository
 public class ContentJdbcTemplateRepository {
 
     private final JdbcTemplate jdbcTemplate;
