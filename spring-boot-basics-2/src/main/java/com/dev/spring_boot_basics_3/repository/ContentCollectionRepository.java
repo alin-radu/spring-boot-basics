@@ -54,6 +54,17 @@ public class ContentCollectionRepository {
         contentList.add(content);
     }
 
+    public boolean existsById(Integer id) {
+        return contentList
+                .stream()
+                .filter(c -> c.id().equals(id))
+                .count() == 1;
+    }
+
+    public void deleteById(Integer id) {
+        contentList.removeIf(c -> c.id().equals(id));
+    }
+
     /*
      * @PostConstruct: An annotation that indicates a method should be called after
      * the bean's properties have been set, useful for initializing data.
@@ -71,16 +82,5 @@ public class ContentCollectionRepository {
 
         contentList.add(content);
 
-    }
-
-    public boolean existsById(Integer id) {
-        return contentList
-                .stream()
-                .filter(c -> c.id().equals(id))
-                .count() == 1;
-    }
-
-    public void deleteById(Integer id) {
-        contentList.removeIf(c -> c.id().equals(id));
     }
 }
