@@ -11,7 +11,6 @@
 ### II. GITHUB
 
 - https://github.com/alin-radu/spring-boot-basics
-- 
 
 ### III. APP
 

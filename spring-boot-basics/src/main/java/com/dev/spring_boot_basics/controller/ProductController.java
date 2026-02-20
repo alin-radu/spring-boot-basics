@@ -10,10 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.*;
 import java.util.List;
 
-@RestController
+//@RestController is a specialized version of @Controller that automatically returns JSON (or other HTTP body content) instead of a view.
+//@RequestMapping is a core annotation from the Spring Framework used to map HTTP requests to handler methods in a controller.
 @CrossOrigin
+@RestController
 @RequestMapping("/api")
 public class ProductController {
 
@@ -33,21 +36,20 @@ public class ProductController {
                 .body(products);
     }
 
+    //@PathVariable is an annotation from the Spring Framework used to extract values directly from the URL path and bind them to method parameters.
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProductById(@PathVariable int productId) {
         Product product = service.getProductById(productId);
 
-        if (product != null) {
-
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(product);
-        } else {
-
+        if (product == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(null);
         }
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(product);
     }
 
     @SuppressWarnings("JvmTaintAnalysis")
@@ -64,18 +66,28 @@ public class ProductController {
                     .status(HttpStatus.CREATED)
                     .body(new ProductResponseDto(newProduct));
         } catch (Exception e) {
-
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(e.getMessage());
         }
     }
 
+    //Never dereference a potentially null object before checking if it’s null.
     @GetMapping("products/{productId}/image")
     public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId) {
-
         Product product = service.getProductById(productId);
+        if (product == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+
         byte[] imageFile = product.getImageData();
+        if (imageFile == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
 
         return ResponseEntity
                 .ok()
@@ -92,7 +104,6 @@ public class ProductController {
     ) {
 
         if (service.getProductById(productId) == null) {
-
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(null);
@@ -100,7 +111,6 @@ public class ProductController {
 
         try {
             Product newProduct = service.updateProduct(product, imageFile);
-
             //noinspection JvmTaintAnalysis
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -115,15 +125,17 @@ public class ProductController {
     @DeleteMapping("/products/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable int id) {
         Product product = service.getProductById(id);
-        if (product != null) {
-            service.deleteProduct(id);
 
-            return new ResponseEntity<>("Deleted", HttpStatus.OK);
-        } else
-
+        if (product == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
-                    .body("Product not found");
+                    .body(null);
+        }
+
+        service.deleteProduct(id);
+
+        return new ResponseEntity<>("Deleted", HttpStatus.OK);
+
     }
 
     @GetMapping("/products/search")
@@ -136,101 +148,3 @@ public class ProductController {
                 .body(products);
     }
 }
-
-//package com.dev.spring_boot_basics.controller;
-//
-//import com.dev.spring_boot_basics.model.Product;
-//import com.dev.spring_boot_basics.service.ProductService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//@RestController
-//@RequestMapping("/api")
-//public class ProductController {
-//
-//    ProductService productService;
-//
-//    @Autowired
-//    public void setService(ProductService service) {
-//        this.productService = service;
-//    }
-//
-//    @GetMapping("/products")
-//    public List<Product> getProducts() {
-//        return productService.getAllProducts();
-//    }
-//
-//    @GetMapping("/products/{productId}")
-//    public ResponseEntity<?> getProductById(@PathVariable int productId) {
-//        Product product = productService.getProductById(productId);
-//
-//        if (product != null) {
-//            return ResponseEntity
-//                    .status(HttpStatus.OK)
-//                    .body(product);
-//        } else {
-//            Map<String, String> response = new HashMap<>();
-//            response.put("message", "Product not found");
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_FOUND)
-//                    .body(response);
-//        }
-//    }
-//
-//    @PostMapping("/products")
-//    public ResponseEntity<?> addProduct(@RequestBody Product product) {
-//        System.out.println("Adding product | controller: " + product);
-//
-//        boolean created = productService.addProduct(product);
-//
-//        if (created) {
-//            return ResponseEntity.status(HttpStatus.CREATED).build();
-//        } else {
-//            Map<String, String> response = new HashMap<>();
-//            response.put("message", "Operation failed!");
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_FOUND)
-//                    .body(response);
-//        }
-//    }
-//
-//    @PutMapping("/products/{productId}")
-//    public ResponseEntity<?> updateProduct(@PathVariable int productId, @RequestBody Product product) {
-//        System.out.println("Updating product | controller: " + productId);
-//
-//        boolean updated = productService.updateProductById(productId, product);
-//
-//        if (updated) {
-//            return ResponseEntity.status(HttpStatus.OK).build();
-//        } else {
-//            Map<String, String> response = new HashMap<>();
-//            response.put("message", "Operation failed!");
-//            return ResponseEntity
-//                    .status(HttpStatus.BAD_REQUEST)
-//                    .body(response);
-//        }
-//    }
-//
-//    @DeleteMapping("/products/{productId}")
-//    public ResponseEntity<?> deleteProduct(@PathVariable int productId) {
-//        System.out.println("Deleting productId | controller: " + productId);
-//
-//        boolean deleted = productService.deleteProductById(productId);
-//
-//        if (deleted) {
-//            return ResponseEntity.status(HttpStatus.OK).build();
-//        } else {
-//            Map<String, String> response = new HashMap<>();
-//            response.put("message", "Operation failed!");
-//            return ResponseEntity
-//                    .status(HttpStatus.BAD_REQUEST)
-//                    .body(response);
-//        }
-//    }
-//}
