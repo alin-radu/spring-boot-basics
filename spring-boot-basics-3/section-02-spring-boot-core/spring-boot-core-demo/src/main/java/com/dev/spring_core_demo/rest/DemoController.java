@@ -29,7 +29,7 @@ public class DemoController {
 //    }
 
     @Autowired
-    public DemoController(@Qualifier("swimCoach") Coach coach) {
+    public DemoController(@Qualifier("swimCoachBean") Coach coach) {
         System.out.println("In constructor: " + getClass().getSimpleName());
 
         this.coach = coach;

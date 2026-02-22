@@ -1,7 +1,9 @@
 package com.dev.spring_core_demo.common;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+@Lazy
 @Component
 public class BaseballCoach implements Coach {
 

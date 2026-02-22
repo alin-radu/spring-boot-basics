@@ -1,5 +1,8 @@
 package com.dev.spring_core_demo.common;
 
+import org.springframework.context.annotation.Lazy;
+
+@Lazy
 public class SwimCoach implements Coach {
 
     public SwimCoach() {

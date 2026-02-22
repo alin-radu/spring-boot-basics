@@ -10,7 +10,7 @@ public class SportConfig {
 
     @Bean // the bean id is the method name, swimCoach
 //    @Bean("aquaticCoach") // define a custom id
-    public Coach swimCoach() {
+    public Coach swimCoachBean() {
         return new SwimCoach();
     }
 
