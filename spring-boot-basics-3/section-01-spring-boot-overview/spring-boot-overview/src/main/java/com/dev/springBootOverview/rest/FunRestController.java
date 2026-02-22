@@ -20,7 +20,7 @@ public class FunRestController {
 
     @GetMapping("/workout")
     public String getDailyWorkout() {
-        return "Run a Hard 5k.";
+        return "Run a Hard 20k.";
     }
 
     @GetMapping("/fortune")
