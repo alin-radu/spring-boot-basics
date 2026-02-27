@@ -16,6 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    // allows us to execute code after the Spring Beans have been loaded;
     @Bean
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 
@@ -24,13 +25,13 @@ public class Application {
 
 //            createStudent(studentDAO);
 
-            createMultipleStudents(studentDAO);
+//            createMultipleStudents(studentDAO);
 
 //            readStudent(studentDAO);
 
 //            queryForStudents(studentDAO);
 
-//            queryForStudentsByLastName(studentDAO);
+            queryForStudentsByLastName(studentDAO);
 
 //            updateStudent(studentDAO);
 
@@ -40,6 +41,15 @@ public class Application {
 
             System.out.println("---> commandLineRunner EXECUTED");
         };
+    }
+
+    // createStudent
+    private Student createStudent(StudentDAO studentDAO) {
+        Student tempStudent = new Student("Daffy", "Beast", "test@gmail.io");
+
+        studentDAO.save(tempStudent);
+
+        return tempStudent;
     }
 
     // deleteAllStudents
@@ -78,7 +88,7 @@ public class Application {
 
     // queryForStudentsByLastName
     private void queryForStudentsByLastName(StudentDAO studentDAO) {
-        List<Student> students = studentDAO.findByLastName("Doe1");
+        List<Student> students = studentDAO.findByLastName("Beast");
 
         if (students.isEmpty()) {
             System.out.println("No data found.");
@@ -121,14 +131,5 @@ public class Application {
         studentDAO.save(tempStudent1);
         studentDAO.save(tempStudent2);
         studentDAO.save(tempStudent3);
-    }
-
-    // createStudent
-    private Student createStudent(StudentDAO studentDAO) {
-        Student tempStudent = new Student("Daffy", "Beast", "test@gmail.io");
-
-        studentDAO.save(tempStudent);
-
-        return tempStudent;
     }
 }

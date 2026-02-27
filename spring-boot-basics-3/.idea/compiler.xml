@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring-boot-core-demo" />
         <module name="spring-boot-overview" />
+        <module name="spring-boot-hibernate-basics" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="spring-boot-core-demo" options="-parameters" />
+      <module name="spring-boot-hibernate-basics" options="-parameters" />
       <module name="spring-boot-overview" options="-parameters" />
     </option>
   </component>
