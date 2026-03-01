@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/spring-boot-basics-3.iml" filepath="$PROJECT_DIR$/.idea/spring-boot-basics-3.iml" />
       <module fileurl="file://$PROJECT_DIR$/section-03-spring-boot-hibernate-jpa/spring-boot-hibernate-basics/spring-boot-hibernate-basics.iml" filepath="$PROJECT_DIR$/section-03-spring-boot-hibernate-jpa/spring-boot-hibernate-basics/spring-boot-hibernate-basics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/section-04-spring-boot-rest-crud/spring-boot-rest-basics-2/sprint-boot-rest-basics-2.iml" filepath="$PROJECT_DIR$/section-04-spring-boot-rest-crud/spring-boot-rest-basics-2/sprint-boot-rest-basics-2.iml" />
     </modules>
   </component>
 </project>

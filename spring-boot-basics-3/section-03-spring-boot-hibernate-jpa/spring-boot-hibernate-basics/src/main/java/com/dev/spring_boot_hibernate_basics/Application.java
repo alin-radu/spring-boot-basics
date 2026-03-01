@@ -31,9 +31,9 @@ public class Application {
 
 //            queryForStudents(studentDAO);
 
-            queryForStudentsByLastName(studentDAO);
+//            queryForStudentsByLastName(studentDAO);
 
-//            updateStudent(studentDAO);
+            updateStudent(studentDAO);
 
 //            deleteStudent(studentDAO);
 
@@ -74,7 +74,7 @@ public class Application {
 
     // updateStudent
     private void updateStudent(StudentDAO studentDAO) {
-        int id = 1;
+        int id = 23;
         Student student = studentDAO.findById(id);
 
         if (student == null) {

@@ -4,9 +4,12 @@ import com.dev.sprint_boot_rest_basics_2.entity.Employee;
 import com.dev.sprint_boot_rest_basics_2.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 
+//Spring Data JPA applies transactions automatically to repository methods.
+//@Transactional
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -25,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findById(int id) {
         Optional<Employee> result = employeeRepository.findById(id);
 
-        Employee employee = null;
+        Employee employee;
 
         if (result.isPresent()) {
             employee = result.get();

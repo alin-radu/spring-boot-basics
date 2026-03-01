@@ -6,7 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-boot-rest-basics" />
         <module name="spring-boot-core-demo" />
+        <module name="sprint-boot-rest-basics-2" />
         <module name="spring-boot-overview" />
         <module name="spring-boot-hibernate-basics" />
       </profile>
@@ -17,6 +19,8 @@
       <module name="spring-boot-core-demo" options="-parameters" />
       <module name="spring-boot-hibernate-basics" options="-parameters" />
       <module name="spring-boot-overview" options="-parameters" />
+      <module name="spring-boot-rest-basics" options="-parameters" />
+      <module name="sprint-boot-rest-basics-2" options="-parameters" />
     </option>
   </component>
 </project>

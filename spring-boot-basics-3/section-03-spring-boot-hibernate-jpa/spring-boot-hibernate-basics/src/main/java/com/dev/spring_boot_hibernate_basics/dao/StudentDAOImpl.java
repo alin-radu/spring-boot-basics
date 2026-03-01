@@ -2,7 +2,6 @@ package com.dev.spring_boot_hibernate_basics.dao;
 
 import com.dev.spring_boot_hibernate_basics.entity.Student;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,8 +69,12 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     @Transactional
     public int deleteAll() {
-        Query query = entityManager.createQuery("DELETE FROM Student");
+        int deletedCount = entityManager
+                .createQuery("DELETE FROM Student")
+                .executeUpdate();
 
-        return query.executeUpdate();
+        entityManager.clear();
+
+        return deletedCount;
     }
 }
