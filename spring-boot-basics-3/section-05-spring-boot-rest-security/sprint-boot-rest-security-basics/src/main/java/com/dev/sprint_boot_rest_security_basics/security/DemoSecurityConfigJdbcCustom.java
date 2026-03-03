@@ -35,9 +35,6 @@ public class DemoSecurityConfigJdbcCustom {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // use HTTP Basic authentication
-        // disable Cross Site Request Forgery (CSRF)
-        // in general, not required for stateless REST APIs that use POST, PUT, DELETE and/or PATCH
 
         http
                 .authorizeHttpRequests(configurer ->
@@ -48,7 +45,10 @@ public class DemoSecurityConfigJdbcCustom {
                                 .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
                 )
+                // use HTTP Basic authentication
                 .httpBasic(Customizer.withDefaults())
+                // disable Cross Site Request Forgery (CSRF)
+                // in general, not required for stateless REST APIs that use POST, PUT, DELETE and/or PATCH
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

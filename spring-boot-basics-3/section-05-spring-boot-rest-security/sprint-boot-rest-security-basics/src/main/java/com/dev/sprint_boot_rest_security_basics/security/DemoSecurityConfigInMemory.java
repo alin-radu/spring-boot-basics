@@ -50,9 +50,12 @@ public class DemoSecurityConfigInMemory {
                                 .requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
                                 .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
                                 .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
+                                .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasRole("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
                 )
+                // use HTTP Basic authentication
                 .httpBasic(Customizer.withDefaults())
+                // disable CSRF
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

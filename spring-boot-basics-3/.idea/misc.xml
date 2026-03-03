@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/section-03-spring-boot-hibernate-jpa/spring-boot-hibernate-basics/pom.xml" />
         <option value="$PROJECT_DIR$/section-04-spring-boot-rest-crud/spring-boot-rest-basics/pom.xml" />
         <option value="$PROJECT_DIR$/section-04-spring-boot-rest-crud/spring-boot-rest-basics-2/pom.xml" />
+        <option value="$PROJECT_DIR$/section-05-spring-boot-rest-security/sprint-boot-rest-security-basics/pom.xml" />
       </list>
     </option>
   </component>
